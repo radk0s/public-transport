@@ -13,13 +13,15 @@ namespace SAO
         public List<Line> Lines { get; private set; }
         public int NumberOfBuses { get; private set; }
         public int BusCapacity { get; private set; }
+        public Random Random { get; private set; }
 
-        public Specimen(Routes routes, List<Line> lines, int numberOfBuses, int busCapacity)
+        public Specimen(Routes routes, List<Line> lines, int numberOfBuses, int busCapacity, Random random)
         {
             Routes = routes;
             Lines = lines;
             NumberOfBuses = numberOfBuses;
             BusCapacity = busCapacity;
+            Random = random;
             SetRandomDistribution();
             CalculateSpecimentValue();
         }
@@ -30,6 +32,7 @@ namespace SAO
             Lines = toClone.Lines;
             NumberOfBuses = toClone.NumberOfBuses;
             BusCapacity = toClone.BusCapacity;
+            Random = toClone.Random;
             CopyDistribution(toClone);
             CalculateSpecimentValue();
         }
@@ -37,11 +40,10 @@ namespace SAO
         private void SetRandomDistribution()
         {
             Distribution = new List<int>();
-            var random = new Random();
             int[] leftSpace = {Lines.Count};
             int[] sum = {0};
 
-            foreach (var toAdd in Lines.Select(line => random.Next(1, (NumberOfBuses - sum[0]) / leftSpace[0])))
+            foreach (var toAdd in Lines.Select(line => Random.Next(1, (NumberOfBuses - sum[0]) / leftSpace[0])))
             {
                 Distribution.Add(toAdd);
                 sum[0] += toAdd;
@@ -50,7 +52,7 @@ namespace SAO
 
             for (var i = 0; i < Lines.Count; i++)
             {
-                var toSwap = random.Next(0, Lines.Count - 1);
+                var toSwap = Random.Next(0, Lines.Count - 1);
                 var tmp = Distribution[toSwap];
                 Distribution[toSwap] = Distribution[i];
                 Distribution[i] = tmp;
@@ -85,12 +87,11 @@ namespace SAO
 
         public void MutateByChangingPlaces()
         {
-            var random = new Random();
-            var numberOfChanges = random.Next(0, Lines.Count);
+            var numberOfChanges = Random.Next(0, Lines.Count);
             for (var i = 0; i < numberOfChanges; i++)
             {
-                var first = random.Next(1, Lines.Count - 1);
-                var second = random.Next(1, Lines.Count - 1);
+                var first = Random.Next(1, Lines.Count - 1);
+                var second = Random.Next(1, Lines.Count - 1);
                 var temp = Distribution[first];
                 Distribution[first] = Distribution[second];
                 Distribution[second] = temp;
@@ -100,8 +101,7 @@ namespace SAO
 
         public void Mutate()
         {
-            var random = new Random();
-            var toBeChanged = Lines.Select(line => random.Next(0, 100)).Select(rolled => rolled < 20 ? 1 : 0).ToList();
+            var toBeChanged = Lines.Select(line => Random.Next(0, 100)).Select(rolled => rolled < 20 ? 1 : 0).ToList();
 
             for (var i = 0; i < Lines.Count; i++)
             {
@@ -110,7 +110,7 @@ namespace SAO
                 var min = -(Distribution[i] - 1);
                 if (toBeChanged[i] == 1 && min < max)
                 {
-                    Distribution[i] += random.Next(min, max);
+                    Distribution[i] += Random.Next(min, max);
                 }
             }
         }

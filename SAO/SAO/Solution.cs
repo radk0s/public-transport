@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SAO
@@ -14,6 +15,7 @@ namespace SAO
         public int NumberOfBuses { get; private set; }
         public int BusCapacity { get; private set; }
         private List<Specimen> _specimens = new List<Specimen>();
+        private readonly Random _random = new Random();
 
         public Solution(Routes routes, List<Line> lines, int numberOfBusses, int busCapacity, int numberOfIteration, int poolOfSpeciemens)
         {
@@ -29,7 +31,7 @@ namespace SAO
         {
             for (var i = 0; i < PoolOfSpeciemens; i++)
             {
-                _specimens.Add(new Specimen(Routes, Lines, NumberOfBuses, BusCapacity));
+                _specimens.Add(new Specimen(Routes, Lines, NumberOfBuses, BusCapacity, _random));
             }
             BestResult = new Specimen(_specimens[0]);
             FindBest();
@@ -52,7 +54,7 @@ namespace SAO
                 _specimens = _specimens.OrderBy(o => o.Value).ToList();
                 for (var j = PoolOfSpeciemens/2; j < PoolOfSpeciemens; j++)
                 {
-                    _specimens[j] = new Specimen(Routes, Lines, NumberOfBuses, BusCapacity);
+                    _specimens[j] = new Specimen(Routes, Lines, NumberOfBuses, BusCapacity, _random);
                 }
                 FindBest();
             }
