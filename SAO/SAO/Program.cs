@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using SAO.Structures;
+using SAO.Structures.Mutations;
 
 namespace SAO
 {
@@ -19,8 +21,9 @@ namespace SAO
             const int busCapacity = 5;
             const int numberOfIterations = 2000;
             const int poolOfSpecimens = 100;
+            IMutation mutationType = new AddAndDeductMutation(20);
 
-            var solution = new Solution(routs, lines, numberOfBuses, busCapacity, numberOfIterations, poolOfSpecimens);
+            var solution = new Solution(routs, lines, mutationType, numberOfBuses, busCapacity, numberOfIterations, poolOfSpecimens);
             solution.Execute();
             Console.WriteLine(solution.BestResult.Value);
             foreach (var p in solution.BestResult.Distribution)
