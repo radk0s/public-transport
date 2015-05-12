@@ -1,12 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SAO.Structures.Crossover;
 using SAO.Structures.Mutations;
 
 namespace SAO.Structures
 {
-    class Solution
+    internal class Solution
     {
+        private readonly Random _random = new Random();
+        private List<Specimen> _specimens = new List<Specimen>();
+
+        public Solution(Routes routes, List<Line> lines, IMutation mutationType, ICrossover crossoverType,
+            int numberOfBusses, int busCapacity, int numberOfIteration, int poolOfSpeciemens)
+        {
+            Routes = routes;
+            Lines = lines;
+            Mutation = mutationType;
+            Crossover = crossoverType;
+            NumberOfBuses = numberOfBusses;
+            BusCapacity = busCapacity;
+            PoolOfSpeciemens = poolOfSpeciemens;
+            NumberOfIterations = numberOfIteration;
+        }
 
         public Specimen BestResult { get; private set; }
         public int PoolOfSpeciemens { get; private set; }
@@ -15,20 +31,8 @@ namespace SAO.Structures
         public List<Line> Lines { get; private set; }
         public int NumberOfBuses { get; private set; }
         public int BusCapacity { get; private set; }
-        private List<Specimen> _specimens = new List<Specimen>();
         public IMutation Mutation { get; private set; }
-        private readonly Random _random = new Random();
-
-        public Solution(Routes routes, List<Line> lines, IMutation mutationType, int numberOfBusses, int busCapacity, int numberOfIteration, int poolOfSpeciemens)
-        {
-            Routes = routes;
-            Lines = lines;
-            Mutation = mutationType;
-            NumberOfBuses = numberOfBusses;
-            BusCapacity = busCapacity;
-            PoolOfSpeciemens = poolOfSpeciemens;
-            NumberOfIterations = numberOfIteration;
-        }
+        public ICrossover Crossover { get; private set; }
 
         public void Execute()
         {
@@ -47,7 +51,7 @@ namespace SAO.Structures
 //                    {
 //                        Console.WriteLine(dist);
 //                    }
-                    specimen.Mutate();
+                    Mutation.Execute(specimen);
 //                    Console.WriteLine("After:");
 //                    foreach (var dist in specimen.Distribution)
 //                    {
@@ -55,10 +59,15 @@ namespace SAO.Structures
 //                    }
                 }
                 _specimens = _specimens.OrderBy(o => o.Value).ToList();
-                for (var j = PoolOfSpeciemens/2; j < PoolOfSpeciemens; j++)
+                for (var j = 0; j < PoolOfSpeciemens/2; j += 2)
+                {
+                    _specimens[j + PoolOfSpeciemens/2] = Crossover.Execute(_specimens[j], _specimens[j + 1]);
+                }
+                for (var j = PoolOfSpeciemens*3/4; j < PoolOfSpeciemens; j++)
                 {
                     _specimens[j] = new Specimen(Routes, Lines, NumberOfBuses, BusCapacity, Mutation, _random);
                 }
+
                 FindBest();
             }
         }
@@ -70,6 +79,5 @@ namespace SAO.Structures
                 BestResult = new Specimen(speciment);
             }
         }
-
     }
 }

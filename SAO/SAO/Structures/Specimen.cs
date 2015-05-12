@@ -35,9 +35,25 @@ namespace SAO.Structures
             Lines = toClone.Lines;
             NumberOfBuses = toClone.NumberOfBuses;
             BusCapacity = toClone.BusCapacity;
+            Mutation = toClone.Mutation;
             Random = toClone.Random;
             CopyDistribution(toClone);
             CalculateSpecimentValue();
+        }
+
+        public Specimen(Specimen basis, List<int> distribution)
+        {
+            Routes = basis.Routes;
+            Lines = basis.Lines;
+            NumberOfBuses = basis.NumberOfBuses;
+            BusCapacity = basis.BusCapacity;
+            Random = basis.Random;
+            Mutation = basis.Mutation;
+            if (distribution.Count != Lines.Count)
+            {
+                throw new ArgumentException();
+            }
+            Distribution = distribution;
         }
 
         private void SetRandomDistribution()
@@ -86,11 +102,6 @@ namespace SAO.Structures
                 }
             }
             Value = result.Sum(val => Math.Abs(val));
-        }
-
-        public void Mutate()
-        {
-            Mutation.Execute(this);
         }
     }
 }
