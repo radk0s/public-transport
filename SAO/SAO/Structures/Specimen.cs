@@ -49,6 +49,7 @@ namespace SAO.Structures
                 throw new ArgumentException();
             }
             Distribution = distribution;
+            CalculateSpecimentValue();
         }
 
         private void SetRandomDistribution()
