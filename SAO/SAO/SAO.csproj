@@ -44,9 +44,10 @@
     <Compile Include="Structures\Line.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Structures\Mutations\AddAndDeductMutation.cs" />
+    <Compile Include="Structures\Mutations\AddAndRemoveMutation.cs" />
     <Compile Include="Structures\Mutations\ChangePlaceMutation.cs" />
     <Compile Include="Structures\Mutations\IMutation.cs" />
+    <Compile Include="Structures\Mutations\RandomOrderAddAndRemoveMutation.cs" />
     <Compile Include="Structures\Routes.cs" />
     <Compile Include="Structures\Solution.cs" />
     <Compile Include="Structures\Specimen.cs" />

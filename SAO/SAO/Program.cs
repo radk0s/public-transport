@@ -19,9 +19,11 @@ namespace SAO
             };
             const int numberOfBuses = 10;
             const int busCapacity = 5;
-            const int numberOfIterations = 2000;
-            const int poolOfSpecimens = 100;
-            IMutation mutationType = new AddAndDeductMutation(20);
+            const int numberOfIterations = 20;
+            const int poolOfSpecimens = 1;
+//            IMutation mutationType = new AddAndDeductMutation(20);
+            IMutation mutationType = new RandomOrderAddAndRemoveMutation(20);
+
 
             var solution = new Solution(routs, lines, mutationType, numberOfBuses, busCapacity, numberOfIterations, poolOfSpecimens);
             solution.Execute();

@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace SAO.Structures.Mutations
 {
-    public class AddAndDeductMutation : IMutation
+    public class AddAndRemoveMutation : IMutation
     {
         private readonly int _chance;
 
-        public AddAndDeductMutation(int percentageChance)
+        public AddAndRemoveMutation(int percentageChance)
         {
             if (percentageChance < 0 || percentageChance > 100)
             {
