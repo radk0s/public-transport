@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SAO.Structures.Mutations;
 
 namespace SAO.Structures
 {
@@ -15,15 +14,13 @@ namespace SAO.Structures
         public int NumberOfBuses { get; private set; }
         public int BusCapacity { get; private set; }
         public Random Random { get; private set; }
-        public IMutation Mutation { get; private set; }
 
-        public Specimen(Routes routes, List<Line> lines, int numberOfBuses, int busCapacity, IMutation mutationType, Random random)
+        public Specimen(Routes routes, List<Line> lines, int numberOfBuses, int busCapacity, Random random)
         {
             Routes = routes;
             Lines = lines;
             NumberOfBuses = numberOfBuses;
             BusCapacity = busCapacity;
-            Mutation = mutationType;
             Random = random;
             SetRandomDistribution();
             CalculateSpecimentValue();
@@ -35,7 +32,6 @@ namespace SAO.Structures
             Lines = toClone.Lines;
             NumberOfBuses = toClone.NumberOfBuses;
             BusCapacity = toClone.BusCapacity;
-            Mutation = toClone.Mutation;
             Random = toClone.Random;
             CopyDistribution(toClone);
             CalculateSpecimentValue();
@@ -48,7 +44,6 @@ namespace SAO.Structures
             NumberOfBuses = basis.NumberOfBuses;
             BusCapacity = basis.BusCapacity;
             Random = basis.Random;
-            Mutation = basis.Mutation;
             if (distribution.Count != Lines.Count)
             {
                 throw new ArgumentException();

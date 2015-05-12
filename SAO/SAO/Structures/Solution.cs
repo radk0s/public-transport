@@ -38,7 +38,7 @@ namespace SAO.Structures
         {
             for (var i = 0; i < PoolOfSpeciemens; i++)
             {
-                _specimens.Add(new Specimen(Routes, Lines, NumberOfBuses, BusCapacity, Mutation, _random));
+                _specimens.Add(new Specimen(Routes, Lines, NumberOfBuses, BusCapacity, _random));
             }
             BestResult = new Specimen(_specimens[0]);
             FindBest();
@@ -65,7 +65,7 @@ namespace SAO.Structures
                 }
                 for (var j = PoolOfSpeciemens*3/4; j < PoolOfSpeciemens; j++)
                 {
-                    _specimens[j] = new Specimen(Routes, Lines, NumberOfBuses, BusCapacity, Mutation, _random);
+                    _specimens[j] = new Specimen(Routes, Lines, NumberOfBuses, BusCapacity, _random);
                 }
 
                 FindBest();

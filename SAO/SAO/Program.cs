@@ -40,10 +40,10 @@ namespace SAO
                 new Line("8:23,28,33,38"),
                 new Line("9:24,29,34,39"),
             };
-            const int numberOfBuses = 40;
+            const int numberOfBuses = 300;
             const int busCapacity = 1;
-            const int numberOfIterations = 200;
-            const int poolOfSpecimens = 20;
+            const int numberOfIterations = 40000;
+            const int poolOfSpecimens = 40;
             IMutation mutationType = new RandomOrderAddAndRemoveMutation(20);
             ICrossover crossoverType = new LowerValueCrossover();
 
