@@ -37,40 +37,32 @@ namespace SAO.Structures
 
         public void Execute()
         {
+            GenerateRandomPopulation();
+            for (var i = 0; i < NumberOfIterations; i++)
+            {
+                _specimens = _specimens.OrderBy(o => o.Value).ToList();
+                var nextPopulation = _specimens.Take(PoolOfSpeciemens/4).ToList();
+                for (var j = 0; j < PoolOfSpeciemens/4; j++)
+                {
+                    nextPopulation.Add(new Specimen(Routes, Lines, NumberOfBuses, BusCapacity, _random));
+                }
+                for (var j = 0; j < PoolOfSpeciemens/2; j += 2)
+                {
+                    nextPopulation.Add(Mutation.Execute(Crossover.Execute(_specimens[j], _specimens[j + 1])));
+                }
+                _specimens = nextPopulation;
+                FindBest();
+            }
+        }
+
+        private void GenerateRandomPopulation()
+        {
             for (var i = 0; i < PoolOfSpeciemens; i++)
             {
                 _specimens.Add(new Specimen(Routes, Lines, NumberOfBuses, BusCapacity, _random));
             }
             BestResult = new Specimen(_specimens[0]);
             FindBest();
-            for (var i = 0; i < NumberOfIterations; i++)
-            {
-                foreach (var specimen in _specimens)
-                {
-//                    Console.WriteLine("Before:");
-//                    foreach (var dist in specimen.Distribution)
-//                    {
-//                        Console.WriteLine(dist);
-//                    }
-                    Mutation.Execute(specimen);
-//                    Console.WriteLine("After:");
-//                    foreach (var dist in specimen.Distribution)
-//                    {
-//                        Console.WriteLine(dist);
-//                    }
-                }
-                _specimens = _specimens.OrderBy(o => o.Value).ToList();
-                for (var j = 0; j < PoolOfSpeciemens/2; j += 2)
-                {
-                    _specimens[j + PoolOfSpeciemens/2] = Crossover.Execute(_specimens[j], _specimens[j + 1]);
-                }
-                for (var j = PoolOfSpeciemens*3/4; j < PoolOfSpeciemens; j++)
-                {
-                    _specimens[j] = new Specimen(Routes, Lines, NumberOfBuses, BusCapacity, _random);
-                }
-
-                FindBest();
-            }
         }
 
         private void FindBest()

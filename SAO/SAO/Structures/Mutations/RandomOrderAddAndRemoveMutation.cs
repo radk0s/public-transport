@@ -17,25 +17,25 @@ namespace SAO.Structures.Mutations
             _chance = percentageChance;
         }
 
-        public void Execute(Specimen specimen)
+        public Specimen Execute(Specimen specimen)
         {
-            var numberOfItemsToChanged =
+            var changeMask =
                 specimen.Lines.Select(line => specimen.Random.Next(0, 100))
                     .Select(rolled => rolled < _chance ? 1 : 0)
                     .ToList();
 
-            var toBeChanged = new List<int>();
+            var linesToChange = new List<int>();
             for (var i = 0; i < specimen.Lines.Count; i++)
             {
-                if (numberOfItemsToChanged[i] != 1) continue;
+                if (changeMask[i] != 1) continue;
                 var value = specimen.Random.Next(0, specimen.Lines.Count - 1);
-                if (!toBeChanged.Contains(value))
+                if (!linesToChange.Contains(value))
                 {
-                    toBeChanged.Add(value);
+                    linesToChange.Add(value);
                 }
             }
 
-            foreach (var i in toBeChanged)
+            foreach (var i in linesToChange)
             {
                 var busses = specimen.Distribution.Sum();
                 var max = specimen.NumberOfBuses - busses;
@@ -46,6 +46,7 @@ namespace SAO.Structures.Mutations
                 }
             }
             specimen.CalculateSpecimentValue();
+            return specimen;
         }
     }
 }

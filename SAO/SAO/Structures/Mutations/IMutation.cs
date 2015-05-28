@@ -2,6 +2,6 @@
 {
     public interface IMutation
     {
-        void Execute(Specimen specimen);
+        Specimen Execute(Specimen specimen);
     }
 }

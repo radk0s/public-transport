@@ -2,7 +2,7 @@
 {
     public class ChangePlaceMutation : IMutation
     {
-        public void Execute(Specimen specimen)
+        public Specimen Execute(Specimen specimen)
         {
             var numberOfChanges = specimen.Random.Next(0, specimen.Lines.Count);
             for (var i = 0; i < numberOfChanges; i++)
@@ -14,6 +14,7 @@
                 specimen.Distribution[second] = temp;
             }
             specimen.CalculateSpecimentValue();
+            return specimen;
         }
     }
 }

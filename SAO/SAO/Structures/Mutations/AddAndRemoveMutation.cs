@@ -16,7 +16,7 @@ namespace SAO.Structures.Mutations
             _chance = percentageChance;
         }
 
-        public void Execute(Specimen specimen)
+        public Specimen Execute(Specimen specimen)
         {
             var toBeChanged =
                 specimen.Lines.Select(line => specimen.Random.Next(0, 100))
@@ -34,6 +34,7 @@ namespace SAO.Structures.Mutations
                 }
             }
             specimen.CalculateSpecimentValue();
+            return specimen;
         }
     }
 }
