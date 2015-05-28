@@ -8,11 +8,11 @@ namespace SAO.Structures
 {
     internal class Solution
     {
-        private readonly Random _random = new Random();
+        private readonly Random _random;
         private List<Specimen> _specimens = new List<Specimen>();
 
         public Solution(Routes routes, List<Line> lines, IMutation mutationType, ICrossover crossoverType,
-            int numberOfBusses, int busCapacity, int numberOfIteration, int poolOfSpeciemens)
+            int numberOfBusses, int busCapacity, int numberOfIteration, int poolOfSpeciemens, Random random)
         {
             Routes = routes;
             Lines = lines;
@@ -22,6 +22,7 @@ namespace SAO.Structures
             BusCapacity = busCapacity;
             PoolOfSpeciemens = poolOfSpeciemens;
             NumberOfIterations = numberOfIteration;
+            _random = random;
         }
 
         public Specimen BestResult { get; private set; }
