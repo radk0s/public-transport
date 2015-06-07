@@ -51,6 +51,10 @@ Problem optymalizacji sieci transportu miejskiego jest tematem licznych badań. 
 \subsection{Opis problemu}
 Poszukujemy optymalnego przydziału pojadzów komunikacji miejskiej do ustalonych tras linii. Linie łączą przystanki. Na odcinkach między przystankami panuje stałe natężenie ruchu pasażerów. Ścisłe sformułowanie problemu znajduje się w \autoref{sec:solution}.
 
+[TODO: dac tutaj ladny rysunek sieci albo autobusu]
+
+\newpage
+
 
 
 %% section 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -58,20 +62,41 @@ Poszukujemy optymalnego przydziału pojadzów komunikacji miejskiej do ustalonyc
 \section{Przegląd rozwiązań}
 Temat optymalizacji lini transportu miejskiego był poruszany w wielu pracach. Zaproponowano wiele różnych modeli, z różnymi ograniczeniami i różnymi kryteriami optymalizacji. Przedstawiamy tutaj najważniejsze spośród rozwiązań wykorzystujących algorytmy stochastyczne.
 
+\paragraph{\cite{bib-large-scale}}
+Przedstawia algorytm ustalania tras w sieci połączonych przystanków, z ograniczeniami uwzględniającymi długość trasy i ilość pojazdów (równoważne kosztowi operatora). Optymalizowana funkcja celu minimalizuje czas podróży użytkowników komunikacji między określonymi przystankami. Wykorzystuje symulowane wyżarzanie oraz \textit{fast descent (FD) search}.
+
+\paragraph{\cite{bib-ant-colony}}
+Przyjmuje następujące ograniczenia: określona maksymalna długość linii, minimalna liczba pasażerów jest wymagana do uruchomienia linii, pojemność linii musi być większa niż natężenie pasażerów. Wykorzystany algorytm to \textit{parallel ant colony algorithm} z wieloma koloniami mrówek jednocześnie wyszukującymi rozwiązania.
+
+\paragraph{\cite{bib-transit-oriented}}
+Autorska heurystyka optymalizująca przepływ pasażerów z użyciem standardowej macierzy OD (ang. \textit{origin-destination}).
+
+\subsection{Pozostałe rozwiązania}
+Inne podejścia, nie wykorzystujące algorytmów stochastycznych, to przykładowo:
+
+\paragraph{\cite{bib-route-optimization}}
+Minimalizacja kosztów operacyjnych i planowanie rozkładu połączeń z wykorzystaniem solwera CPLEX.
+
+\paragraph{\cite{bib-theoretical-framework}}
+Przeszukiwanie grafu połaczeń z uwzględnieniem rozkładu jazdy (\textit{time-dependent links}).
+
+\newpage
+
 
 
 %% section 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Opis algorytmu} \label{sec:solution}
-Blah blah blah. \cite{bib-route-optimization}
+Blah blah blah.
 
-
+\newpage
 
 %% section 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Wyniki}
 Blah blah.
 
+\newpage
 
 \nocite{bib-transit-oriented}
 
