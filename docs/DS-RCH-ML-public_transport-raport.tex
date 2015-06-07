@@ -28,7 +28,6 @@
 
 \author{Dawid Szmigielski, Radosław Chamot, Michał Liszcz}
 
-% TODO zmienic tytul
 \title{Genetyczny algorytm przydziału autobusów w komunikacji miejskiej}
 
 \supervisor{prof. dr hab. inż. Robert Schaefer}
@@ -183,20 +182,36 @@ def crossover(P1, P2):
 		return P1 if value(P1) < value(P2) else P2
 	else:
 	
-	P3 = new_individial()
+		P3 = new_individial()
 	
-	for i in range(P1):
-		P3[i] = P1[i]
-			if P1[i] < P2[i] && bernoulli() == 1
-			else P2[i]
+		for i in range(P1):
+			P3[i] = P1[i]
+				if P1[i] < P2[i] && bernoulli() == 1
+				else P2[i]
+				
+		return P3
 
 \end{lstlisting}
 
 \subsubsection{Mutacja}
-Osobniki powstałe w wyniku krzyżowania są (z niewielkim prawdopodobieństwem) poddawane mutacji. W procesie mutacji losowana jest maska określająca które elementy genotypu będą zmieniane. Nowa wartość jest losowana w taki sposób, by nie przekroczyć górnego ograniczenia na liczbę autobusów.
+Osobniki powstałe w wyniku krzyżowania są (z niewielkim prawdopodobieństwem, 2\%) poddawane mutacji. W procesie mutacji losowana jest maska określająca które elementy genotypu będą zmieniane. Nowa wartość jest losowana w taki sposób, by nie przekroczyć górnego ograniczenia na liczbę autobusów.
 
 \begin{lstlisting}[language=Python]
-TODO pseudokod
+def mutation(P):
+
+	if rand(0, 100) > 2:
+		return P
+	else:
+	
+		# generate mutation mask (bernoulli distribution)
+		fields_to_change = ...
+	
+		for i in random_shuffle(fields_to_change):
+			# use safe values for min and max
+			P[i] = random(min, max)
+	
+		return P
+	
 \end{lstlisting}
 
 \newpage
