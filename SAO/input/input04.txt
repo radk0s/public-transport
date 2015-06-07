@@ -15,8 +15,9 @@
 11:8,17,19
 12:3,11,17,20,21
 
-busCapacity=60
-numberOfIterations=400
+busCapacity=1
+numberOfBuses=1000
+numberOfIterations=40000
 poolOfSpecimens=40
 mutationChance=20
 crossoverBernoulli=0.4
