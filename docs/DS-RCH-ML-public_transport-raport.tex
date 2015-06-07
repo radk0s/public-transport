@@ -1,0 +1,84 @@
+
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{pgffor}
+
+\def\sectionautorefname{rozdziale}
+
+\usepackage{natbib}
+\usepackage{keyval}
+\usepackage{usebib}
+\bibliographystyle{abbrv}
+\bibinput{bibliografia}
+
+\usepackage{listings}
+\lstset{tabsize=4, frame=tb, numbers=none}
+
+\usepackage{tabulary}
+
+\usepackage{pdfpages}
+
+\graphicspath{{images/}}
+
+\author{Dawid Szmigielski, Radosław Chamot, Michał Liszcz}
+
+% TODO zmienic tytul
+\title{Stochastyczne algorytmy obliczeniowe \\ trasy}
+
+% \supervisor{prof. dr hab. inż. Robert Schaefer}
+
+\date{2015}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+
+%% section 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Wprowadzenie} \label{sec:intro}
+Problem optymalizacji sieci transportu miejskiego jest tematem licznych badań. Zapotrzebowanie na transport publiczny stale rośnie. Przewoźnicy dążą do minimalizacji kosztów operacyjnych a jednocześnie do zapewnienia pasażerom najwyższej jakości usług (minimalny czas oczekiwania na przystankach, duża częstotliwość kursowania na zatłoczonych liniach czy optymalne zapełnienie pojazdów). W tej pracy przedstawiamy własną propozycję rozwiązania problemu przydziału pojazdów komunikacji miejskiej do wyznaczonych tras.
+
+\subsection{Opis problemu}
+Poszukujemy optymalnego przydziału pojadzów komunikacji miejskiej do ustalonych tras linii. Linie łączą przystanki. Na odcinkach między przystankami panuje stałe natężenie ruchu pasażerów. Ścisłe sformułowanie problemu znajduje się w \autoref{sec:solution}.
+
+
+
+%% section 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Przegląd rozwiązań}
+Temat optymalizacji lini transportu miejskiego był poruszany w wielu pracach. Zaproponowano wiele różnych modeli, z różnymi ograniczeniami i różnymi kryteriami optymalizacji. Przedstawiamy tutaj najważniejsze spośród rozwiązań wykorzystujących algorytmy stochastyczne.
+
+
+
+%% section 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Opis algorytmu} \label{sec:solution}
+Blah blah blah. \cite{bib-route-optimization}
+
+
+
+%% section 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Wyniki}
+Blah blah.
+
+
+\nocite{bib-transit-oriented}
+
+\bibliography{bibliografia}
+\newpage
+
+\listoffigures
+\newpage
+
+\end{document}
