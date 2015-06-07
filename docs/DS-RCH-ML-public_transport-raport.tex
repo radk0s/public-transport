@@ -118,7 +118,7 @@ D = (d_1, d_2, ..., d_m)
 Do każdej z linii należy przypisać pewną liczbę autobusów $d_i$ tak, aby zminimalizować:
 \begin{itemize}
 	\item liczbę pazażerów nieprzewiezionych (dopuszczamy przypadek że autobus nie zmieści wszystkich pasażerów)
-	\item liczbę pustych miejsc w autobusie (większe załnienie autobusu zwiększa zysk przewoźnika)
+	\item liczbę pustych miejsc w autobusie (większe zapełnienie autobusu zwiększa zysk przewoźnika)
 \end{itemize}
 
 Przyjmujemy jednakową pojemność wszystkich autobusów - każdy może przewieźć $Q$ pasażerów. Algorytm można jednak łatwo rozszerzyć o niejednorodne środki komunikacji.
@@ -177,7 +177,19 @@ W wyniku krzyżowania dwóch osobników $P1$ oraz $P2$ może powstać nowy osobn
 Dodatkowym warunkiem na odziedziczenie części genotypu jest przypisanie mniejszej liczby autobusów na danej linii przez rodzica.
 
 \begin{lstlisting}[language=Python]
-TODO pseudokod
+def crossover(P1, P2):
+
+	if rand(0, 100) > crossoverProbability:
+		return P1 if value(P1) < value(P2) else P2
+	else:
+	
+	P3 = new_individial()
+	
+	for i in range(P1):
+		P3[i] = P1[i]
+			if P1[i] < P2[i] && bernoulli() == 1
+			else P2[i]
+
 \end{lstlisting}
 
 \subsubsection{Mutacja}
