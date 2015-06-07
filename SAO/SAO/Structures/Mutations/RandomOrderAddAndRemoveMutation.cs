@@ -19,6 +19,12 @@ namespace SAO.Structures.Mutations
 
         public Specimen Execute(Specimen specimen)
         {
+            // 2% chance that the mutation will occur
+            if (specimen.Random.Next(0, 100) > 2)
+            {
+                return specimen;
+            }
+
             var changeMask =
                 specimen.Lines.Select(line => specimen.Random.Next(0, 100))
                     .Select(rolled => rolled < _chance ? 1 : 0)
