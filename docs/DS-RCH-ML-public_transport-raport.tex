@@ -1,9 +1,9 @@
 
-\documentclass[a4paper]{article}
+\documentclass[polish,12pt]{aghthesis}
 
 \usepackage[utf8]{inputenc}
-\usepackage{polski}
-\usepackage[polish]{babel}
+% \usepackage{polski}
+% \usepackage[polish]{babel}
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage{pgffor}
@@ -29,9 +29,9 @@
 \author{Dawid Szmigielski, Radosław Chamot, Michał Liszcz}
 
 % TODO zmienic tytul
-\title{Stochastyczne algorytmy obliczeniowe \\ trasy}
+\title{Genetyczny algorytm przydziału autobusów w komunikacji miejskiej}
 
-% \supervisor{prof. dr hab. inż. Robert Schaefer}
+\supervisor{prof. dr hab. inż. Robert Schaefer}
 
 \date{2015}
 
@@ -52,7 +52,11 @@ Problem optymalizacji sieci transportu miejskiego jest tematem licznych badań. 
 \subsection{Opis problemu}
 Poszukujemy optymalnego przydziału pojadzów komunikacji miejskiej do ustalonych tras linii. Linie łączą przystanki. Na odcinkach między przystankami panuje stałe natężenie ruchu pasażerów. Ścisłe sformułowanie problemu znajduje się w \autoref{sec:solution}.
 
-[TODO: dac tutaj ladny rysunek sieci albo autobusu]
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.9\textwidth]{351408454013_IMG_0581_770_512}
+	\caption{Pojazd komunikacji miejskiej. Źródło: \textit{http://lovekrakow.pl}}
+\end{figure}
 
 \newpage
 
@@ -105,7 +109,7 @@ L_i = (l_1^i, l_2^i, ..., l_k^i) \nonumber
 \end{eqnarray}
 
 \subsubsection{Dane wyjściowe}
-Rozwiązaniem jest przypisanie każdej z $m$ linii $L_i$ dodatniej liczby autobusów $d_i$. $m$-wymiarowy wektor rozwiązania:
+Rozwiązaniem jest przypisanie każdej z $m$ linii $L_i$ dodatniej liczby autobusów $d_i$. Całkowita liczba autobusów jest ograniczona i nie można tej wartości przekroczyć. $m$-wymiarowy wektor rozwiązania:
 \begin{equation}
 D = (d_1, d_2, ..., d_m)
 \end{equation}
@@ -130,12 +134,58 @@ value(D) = \sum_{r_i \in R}|
 Zaproponowane rozwiązanie to genetyczny algorytm ewolucyjny.
 
 \subsubsection{Schemat ewolucji}
+Na początku tworzona jest populacja losowych osobników. Następnie, wykonywane jest $N$ iteracji:
+
+\begin{lstlisting}[language=Python]
+
+# S is population size
+population = create_random_population(S)
+
+best = None
+
+for _ in range(N):
+
+	population = population.order_by( D => value(D) )
+	new_population = []
+	
+	# take 25% best individuals
+	new_population += population.take(S/4)
+	
+	# generate 25% new
+	new_population += create_random_population(S/4)
+	
+	# randomly crossover and mutate 50%
+	new_population += population.sliding(2)
+	.map( (p1, p2) => mutation( crossover(p1, p2) ) )
+	
+	population = new_population
+	
+	new_best = population.min_by( D => value(D) )
+	
+	if best == None || best > new_best :
+		best = new_best
+		
+# best contains solution with minimal value
+\end{lstlisting}
 
 \subsubsection{Kodowanie}
+Z każdym z osobników związane jest rozwiązanie - wektor dodatnich liczb $D$ określających ilość autobusów $d_i$ na danej linii $L_i$. Suma wszystkich elementów tego wektora nie może przekroczyć maksymalnej liczby dostępnych autobusów.
 
 \subsubsection{Krzyżowanie}
+W wyniku krzyżowania dwóch osobników $P1$ oraz $P2$ może powstać nowy osobnik $P3$ lub procedura krzyżująca może zwrócić jednego z osobników $P1$ lub $P2$. Do krzyżowania dochodzi z ustalonym prawdopodobieństwem. Wtedy, zgodnie z rozkładem Bernouliego losowana jest maska określająca które części genotypu będą pochodzić od osobnika $P1$ a które od $P2$.
+
+Dodatkowym warunkiem na odziedziczenie części genotypu jest przypisanie mniejszej liczby autobusów na danej linii przez rodzica.
+
+\begin{lstlisting}[language=Python]
+TODO pseudokod
+\end{lstlisting}
 
 \subsubsection{Mutacja}
+Osobniki powstałe w wyniku krzyżowania są (z niewielkim prawdopodobieństwem) poddawane mutacji. W procesie mutacji losowana jest maska określająca które elementy genotypu będą zmieniane. Nowa wartość jest losowana w taki sposób, by nie przekroczyć górnego ograniczenia na liczbę autobusów.
+
+\begin{lstlisting}[language=Python]
+TODO pseudokod
+\end{lstlisting}
 
 \newpage
 
