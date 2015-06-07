@@ -7,6 +7,7 @@
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage{pgffor}
+\usepackage{amsmath}
 
 \def\sectionautorefname{rozdziale}
 
@@ -86,10 +87,59 @@ Przeszukiwanie grafu połaczeń z uwzględnieniem rozkładu jazdy (\textit{time-
 
 %% section 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Opis algorytmu} \label{sec:solution}
-Blah blah blah.
+\section{Opis rozwiązania} \label{sec:solution}
+Ten rozdział przedstawia naszą próbę rozwiązania problemu optymalnego przydziału pojazdów komunikacji miejskiej do wyznaczonych linii.
+
+\subsection{Definicja problemu}
+Sieć komunikacji miejskiej dana jest w postaci ciągu odcinków $R$, łączących przystanki. Każdy z takich odcinków charakteryzuje dodatnia liczba całkowita $r_i$, będąca natężeniem ruchu na tym odcinku (ilość pasażerów do przewiezienia w jednostce czasu).
+
+W sieci komunikacji miejskiej istnieją ustalone trasy (linie). Zbiór wszystkich lini to $\mathcal{L}$. Linia $L_i$ jest ciągiem złożonym z indeksów kolejnych odcinków leżących na trasie tej linii.
+
+\subsubsection{Dane wejściowe}
+Na wejściu dana jest mapa sieci w postaci ciągu odcinków, oraz zbiór wszystkich linii autobusowych:
+
+\begin{eqnarray}
+R = (r_1, r_2, ..., r_n) \nonumber \\
+\mathcal{L} = \{L_1, L_2, ..., L_m\} \\
+L_i = (l_1^i, l_2^i, ..., l_k^i) \nonumber
+\end{eqnarray}
+
+\subsubsection{Dane wyjściowe}
+Rozwiązaniem jest przypisanie każdej z $m$ linii $L_i$ dodatniej liczby autobusów $d_i$. $m$-wymiarowy wektor rozwiązania:
+\begin{equation}
+D = (d_1, d_2, ..., d_m)
+\end{equation}
+
+\subsubsection{Optymalizacja}
+Do każdej z linii należy przypisać pewną liczbę autobusów $d_i$ tak, aby zminimalizować:
+\begin{itemize}
+	\item liczbę pazażerów nieprzewiezionych (dopuszczamy przypadek że autobus nie zmieści wszystkich pasażerów)
+	\item liczbę pustych miejsc w autobusie (większe załnienie autobusu zwiększa zysk przewoźnika)
+\end{itemize}
+
+Przyjmujemy jednakową pojemność wszystkich autobusów - każdy może przewieźć $Q$ pasażerów. Algorytm można jednak łatwo rozszerzyć o niejednorodne środki komunikacji.
+
+Przy powyższych oznaczeniach wartość rozwiązania (funkcja celu) wyraża się poprzez:
+\begin{equation}
+value(D) = \sum_{r_i \in R}|
+	r_i - \sum_{L_j \in \mathcal{L}}\sum_{l_n^j \in L_j} \delta_{l_n^j}^i d_j Q
+| 
+\end{equation}
+
+\subsection{Algorytm}
+Zaproponowane rozwiązanie to genetyczny algorytm ewolucyjny.
+
+\subsubsection{Schemat ewolucji}
+
+\subsubsection{Kodowanie}
+
+\subsubsection{Krzyżowanie}
+
+\subsubsection{Mutacja}
 
 \newpage
+
+
 
 %% section 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -97,6 +147,8 @@ Blah blah blah.
 Blah blah.
 
 \newpage
+
+
 
 \nocite{bib-transit-oriented}
 
