@@ -221,7 +221,58 @@ def mutation(P):
 %% section 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Wyniki}
-Blah blah.
+Testy zaprezentowanego algorytmu zostały wykonane na wygenerowanych danych. Nie mamy więc możliwości łatwego oszacowania jakości otrzymanego rozwiązania. Zgodnie z \cite{bib-metody-intobl}, wyrysowaliśmy krzywe zbieżności (wartość celu w funkcji liczby iteracji). Wyznaczone zostały również liczby iteracji po jakich osiągnięto zadowalający wynik - zgodnie z kryterium minimalnej szybkości poprawy,	jeżeli w dziesięciu kolejnych iteracjach funkcja celu pozostawała stała, symulacja była przerywana.
+
+Dalej zostaną przedstawione wybrane wyniki.
+
+\subsection{Zestaw 1}
+Pięciokrotnie zwiększono liczbę osobników w populacji.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.9\textwidth]{convRandom0Spec100Bc1Bus10000}
+	\caption{Zestaw 1 - populacja 100 osobników.}
+\end{figure}
+
+Dla populacji złożonej ze 100 osobników końcowa wartość funkcji celu wynosiła około 8000. Wynik był powtarzalny. Zwiększenie populacji do 500 osobników zmniejszyło wartość funkcji celu do 2000 (czterokrotnie). Wartości maksymalne i średnie nie uległy zmianie. Dalsze zwiększanie populacji nie poprawiało wyników.
+
+W obu przypadkach do osiągnięcia minimum potrzeba było około 50 iteracji. Wykorzystane parametry: duża liczba autobusów i każdy o pojemności jednostkowej, pozwalają znaleźć zadowalające rozwiązanie.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.9\textwidth]{convRandom0Spec500Bc1Bus10000}
+	\caption{Zestaw 1 - populacja 500 osobników.}
+\end{figure}
+
+\subsection{Zestaw 2}
+Dalej testowano możliwość zwiększenia pojemności jednego autobusu i zmniejszenia ich liczby.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.9\textwidth]{convInput4Spec400Bc1Bus1000}
+	\caption{Zestaw 2 - 1000 autobusów, pojemność 1.}
+\end{figure}
+
+Dziesięciokrotne zwiększenie pojemności autobusów i odpowiednie zmniejszenie ich dopuszczalnej ilośći dało nadal dobry rezultat. Nieznacznie zwiększyła się za to liczba iteracji.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.9\textwidth]{convInput4Spec400Bc10Bus100}
+	\caption{Zestaw 2 - 100 autobusów, pojemność 10.}
+\end{figure}
+
+\subsection{Zestaw 3}
+
+Dane wejściowe zostały skonstruowane ręcznie tak, że istnieje rozwiązanie o zerowym koszcie. Populacja 400 osobników potrafi znaleźć takie rozwiązanie już po 10 iteracjach.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.9\textwidth]{convInput2Spec400Bc1Bus30}
+	\caption{Zestaw 3 - optymalne rozwiązanie.}
+\end{figure}
+
+\subsection{Wnioski}
+Zaprezentowany algorytm daje akceptowalne rezultaty nawet dla całkowicie losowych danych wejściowych. Bardzo szybka zbieżność (już po kilkudziesięciu iteracjach) może jednak świadczyć o zatrzymywaniu się w lokalnym minimum. Wbrew oczekiwaniom, wprowadzenie częstszych mutacji nie rozwiązało problemu.
 
 \newpage
 
