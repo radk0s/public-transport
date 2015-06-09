@@ -3,6 +3,7 @@ using SAO.Structures;
 using SAO.Structures.Crossover;
 using SAO.Structures.Mutations;
 using SAO.Util;
+using System.IO;
 
 namespace SAO
 {
@@ -13,7 +14,8 @@ namespace SAO
             var loader = new InputDataLoader();
 
             // when run from VS, cwd is [...]/SAO/SAO/bin/Debug
-            var input = loader.loadInput("../../../input/input04.txt");
+            // var input = loader.loadInput("../../../input/input04.txt");
+            var input = loader.loadInput("../../../../generator/input");
 
             var routs = input.Item1;
             var lines = input.Item2;
@@ -45,7 +47,16 @@ namespace SAO
                 poolOfSpecimens,
                 random);
 
-            solution.Execute();
+            var convergence = solution.Execute();
+
+            var home = Environment.GetEnvironmentVariable("HOMEPATH");
+            var file = "convergence.txt";
+            var path = Path.Combine(home, file);
+
+            using (StreamWriter outfile = new StreamWriter(path)) {
+                foreach (var e in convergence)
+                    outfile.WriteLine("{0} {1} {2} {3}", e.Item1, e.Item2, e.Item3, e.Item4);
+            }
 
             Console.WriteLine("Value: " + solution.BestResult.Value);
             Console.WriteLine("Solution:");

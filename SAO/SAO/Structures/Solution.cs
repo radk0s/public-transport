@@ -35,11 +35,23 @@ namespace SAO.Structures
         public IMutation Mutation { get; private set; }
         public ICrossover Crossover { get; private set; }
 
-        public void Execute()
+        public List<Tuple<int, int, int, int>> Execute()
         {
+            // (iter, min, max, avg)
+            var convergence = new List<Tuple<int, int, int, int>>();
+
+            int prevValue = 0;  // best value in previous iteration
+            int sameIters = 0; // number of succeding iterations with same value
+
             GenerateRandomPopulation();
             for (var i = 0; i < NumberOfIterations; i++)
             {
+                convergence.Add(new Tuple<int, int, int, int>(
+                    i + 1,
+                    _specimens.Min(s => s.Value),
+                    _specimens.Max(s => s.Value),
+                    _specimens.Sum(s => s.Value) / _specimens.Count));
+
                 _specimens = _specimens.OrderBy(o => o.Value).ToList();
                 var nextPopulation = _specimens.Take(PoolOfSpeciemens/4).ToList();
                 for (var j = 0; j < PoolOfSpeciemens/4; j++)
@@ -51,8 +63,17 @@ namespace SAO.Structures
                     nextPopulation.Add(Mutation.Execute(Crossover.Execute(_specimens[j], _specimens[j + 1])));
                 }
                 _specimens = nextPopulation;
+
+                prevValue = BestResult.Value;
                 FindBest();
+
+                if (prevValue == BestResult.Value) sameIters++;
+                else sameIters = 0;
+
+                if (sameIters == 10) break;
             }
+
+            return convergence;
         }
 
         private void GenerateRandomPopulation()
